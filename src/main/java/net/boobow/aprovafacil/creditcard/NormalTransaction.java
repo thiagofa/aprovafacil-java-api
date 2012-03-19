@@ -57,7 +57,7 @@ public class NormalTransaction {
 
 	public Authorization authorizeFunds() {
 		Authorization result = new Authorization();
-		result.setAuthorized(this.creditCard.getSecurityCode() == 123 ? true : false);
+		result.setAuthorized(this.creditCard.getSecurityCode() == 123);
 		return result;
 	}
 
