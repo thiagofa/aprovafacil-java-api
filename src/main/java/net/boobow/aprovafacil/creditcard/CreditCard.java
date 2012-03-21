@@ -2,43 +2,63 @@ package net.boobow.aprovafacil.creditcard;
 
 public class CreditCard {
 
-	private int securityCode;
+	private Brand brand;
+	private String number;
+	private Integer expirationMonth;
+	private Integer expirationYear;
+	private Integer securityCode;
+	private String holderName;
 	
 	public enum Brand {
 		VISA, MASTERCARD, DINERS, AMEX, HIPERCARD, JCB, SOROCRED, AURA
 	}
-	
-	public int getSecurityCode() {
-		return this.securityCode;
-	}
-	
 
-	public void setNumber(String string) {
-		
+	public Brand getBrand() {
+		return brand;
 	}
 
-	public void setExpirationMonth(int i) {
-		// TODO Auto-generated method stub
-		
+	public void setBrand(Brand brand) {
+		this.brand = brand;
 	}
 
-	public void setExpirationYear(int i) {
-		// TODO Auto-generated method stub
-		
+	public String getNumber() {
+		return number;
 	}
 
-	public void setSecurityCode(int securityCode) {
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public Integer getExpirationMonth() {
+		return expirationMonth;
+	}
+
+	public void setExpirationMonth(Integer expirationMonth) {
+		this.expirationMonth = expirationMonth;
+	}
+
+	public Integer getExpirationYear() {
+		return expirationYear;
+	}
+
+	public void setExpirationYear(Integer expirationYear) {
+		this.expirationYear = expirationYear;
+	}
+
+	public Integer getSecurityCode() {
+		return securityCode;
+	}
+
+	public void setSecurityCode(Integer securityCode) {
 		this.securityCode = securityCode;
 	}
 
-	public void setHolderName(String string) {
-		// TODO Auto-generated method stub
-		
+	public String getHolderName() {
+		return holderName;
 	}
 
-	public void setBrand(Brand visa) {
-		// TODO Auto-generated method stub
-		
+	public void setHolderName(String holderName) {
+		this.holderName = holderName;
 	}
-
+	
 }

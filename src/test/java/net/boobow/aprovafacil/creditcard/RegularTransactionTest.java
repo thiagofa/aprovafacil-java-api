@@ -8,10 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class NormalTransactionTest {
+public class RegularTransactionTest {
 
 	private CreditCard creditCard;
-	private NormalTransaction transaction;
+	private RegularTransaction transaction;
 	
 	@Before
 	public void setUp() {
@@ -27,7 +27,7 @@ public class NormalTransactionTest {
 		holder.setBirthDate(new Date());
 		holder.setMotherName("Sebastiana das Couves");
 		
-		this.transaction = new NormalTransaction();
+		this.transaction = new RegularTransaction();
 		this.transaction.setOrderNumber("123");
 		this.transaction.setTotalAmount(new BigDecimal(1.99));
 		this.transaction.setCurrency(Currency.BRL);
@@ -57,11 +57,11 @@ public class NormalTransactionTest {
 	}
 	
 	@Test
-	public void shoudReturnAuthorizationNumberEquals440800() {
+	public void shoudReturnAuthorizationNumber() {
 		this.creditCard.setSecurityCode(123);
 		Authorization authorization = this.transaction.authorizeFunds();
 
-		assertEquals("Should return authorization number 440800.", "440800", authorization.getNumber());
+		assertEquals("Should return authorization number.", "440800", authorization.getNumber());
 	}
 	
 }

@@ -4,24 +4,34 @@ import java.util.Date;
 
 public class CreditCardHolder {
 
-	public void setFederalTaxId(String string) {
-		// TODO Auto-generated method stub
-		
+	private String federalTaxId;
+	private String name;
+	private Date birthDate;
+	private String motherName;
+	
+	public String getFederalTaxId() {
+		return federalTaxId;
 	}
-
-	public void setName(String string) {
-		// TODO Auto-generated method stub
-		
+	public void setFederalTaxId(String federalTaxId) {
+		this.federalTaxId = federalTaxId;
 	}
-
-	public void setBirthDate(Date date) {
-		// TODO Auto-generated method stub
-		
+	public String getName() {
+		return name;
 	}
-
-	public void setMotherName(String string) {
-		// TODO Auto-generated method stub
-		
+	public void setName(String name) {
+		this.name = name;
 	}
-
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+	public String getMotherName() {
+		return motherName;
+	}
+	public void setMotherName(String motherName) {
+		this.motherName = motherName;
+	}
+	
 }
