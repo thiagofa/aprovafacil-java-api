@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import net.boobow.aprovafacil.TestUtil;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -70,24 +72,10 @@ public class AprovaFacilServiceTest {
 		AprovaFacilService service = createTestService();
 		
 		service.httpPost = this.httpPost;
-		String xml = this.loadAuthorizedXml();
+		String xml = TestUtil.loadAuthorizedXml();
 		when(this.httpPost.post(anyString(), anyString())).thenReturn(xml);
 		
 		assertEquals(xml, service.post());
-	}
-	
-	private String loadAuthorizedXml() throws IOException {
-		InputStream is = this.getClass().getClassLoader().getResourceAsStream("authorized.xml");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-		
-		StringBuilder sb = new StringBuilder();
-		String line = null;
-		
-		while ((line = reader.readLine()) != null) {
-			sb.append(line);
-		}
-		
-		return sb.toString();
 	}
 	
 	private AprovaFacilService createTestService() {

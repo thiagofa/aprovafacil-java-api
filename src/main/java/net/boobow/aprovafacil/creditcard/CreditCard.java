@@ -7,7 +7,7 @@ public class CreditCard {
 	private Integer expirationMonth;
 	private Integer expirationYear;
 	private Integer securityCode;
-	private String holderName;
+	private CreditCardHolder holder;
 	
 	public enum Brand {
 		VISA, MASTERCARD, DINERS, AMEX, HIPERCARD, JCB, SOROCRED, AURA
@@ -53,12 +53,12 @@ public class CreditCard {
 		this.securityCode = securityCode;
 	}
 
-	public String getHolderName() {
-		return holderName;
+	public CreditCardHolder getHolder() {
+		return holder;
 	}
 
-	public void setHolderName(String holderName) {
-		this.holderName = holderName;
+	public void setHolder(CreditCardHolder holder) {
+		this.holder = holder;
 	}
-	
+
 }
