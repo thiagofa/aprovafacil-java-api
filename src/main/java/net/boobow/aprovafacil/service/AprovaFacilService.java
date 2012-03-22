@@ -1,6 +1,12 @@
 package net.boobow.aprovafacil.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class AprovaFacilService {
@@ -27,11 +33,13 @@ public class AprovaFacilService {
 	private String parameters;
 	private final String username;
 	private final Environment environment;
+	protected HttpPost httpPost;
 	
 	public AprovaFacilService(String username, Environment environment) {
 		this.username = username;
 		this.environment = environment;
 		this.parameters = "";
+		this.httpPost = new HttpPost();
 	}
 
 	public String getParameters() {
@@ -48,6 +56,10 @@ public class AprovaFacilService {
 
 	public String getUrl() {
 		return this.environment.getUrl(this.username);
+	}
+
+	public String post() throws IOException {
+		return this.httpPost.post(this.getUrl(), this.getParameters());
 	}
 
 }

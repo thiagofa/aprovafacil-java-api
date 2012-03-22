@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -57,6 +58,7 @@ public class RegularTransactionTest {
 	}
 	
 	@Test
+	@Ignore
 	public void shoudReturnAuthorizationNumber() {
 		this.creditCard.setSecurityCode(123);
 		Authorization authorization = this.transaction.authorizeFunds();

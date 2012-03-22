@@ -1,13 +1,29 @@
 package net.boobow.aprovafacil.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 public class AprovaFacilServiceTest {
 
+	@Mock
+	private HttpPost httpPost;
+	
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
+	
 	@Test
 	public void shouldAddOneParameter() throws UnsupportedEncodingException {
 		AprovaFacilService service = createTestService();
@@ -47,6 +63,31 @@ public class AprovaFacilServiceTest {
 	public void shouldConfigureServiceUrlForProductionEnvironment() {
 		AprovaFacilService service = createProductionService();
 		assertEquals(service.getUrl(), "https://www.aprovafacil.com/cgi-bin/APFW/boobow/APC");
+	}
+	
+	@Test
+	public void shouldPostAndReturnAuthorizationXml() throws IOException {
+		AprovaFacilService service = createTestService();
+		
+		service.httpPost = this.httpPost;
+		String xml = this.loadAuthorizedXml();
+		when(this.httpPost.post(anyString(), anyString())).thenReturn(xml);
+		
+		assertEquals(xml, service.post());
+	}
+	
+	private String loadAuthorizedXml() throws IOException {
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream("authorized.xml");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		
+		StringBuilder sb = new StringBuilder();
+		String line = null;
+		
+		while ((line = reader.readLine()) != null) {
+			sb.append(line);
+		}
+		
+		return sb.toString();
 	}
 	
 	private AprovaFacilService createTestService() {

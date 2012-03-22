@@ -1,0 +1,21 @@
+<ResultadoAPC>
+<TransacaoAprovada>True</TransacaoAprovada>
+<ResultadoSolicitacaoAprovacao>Autorização - 008771</ResultadoSolicitacaoAprovacao>
+<CodigoAutorizacao>008771</CodigoAutorizacao>
+<Transacao>73458446250265</Transacao>
+<CartaoMascarado>Cartao Nao Informado</CartaoMascarado>
+<NumeroDocumento>123</NumeroDocumento>
+<ComprovanteAdministradora></ComprovanteAdministradora>
+<NacionalidadeEmissor></NacionalidadeEmissor>
+<ResultadoAVS></ResultadoAVS>
+<EnderecoAVS>
+<Endereco></Endereco>
+<Numero></Numero>
+<Complemento></Complemento>
+<Cep></Cep>
+</EnderecoAVS>
+<NumeroSequencialUnico></NumeroSequencialUnico>
+<NumeroControleRede></NumeroControleRede>
+<CodigoResultadoAprovacao>00</CodigoResultadoAprovacao>
+<CodigoResultadoAVS></CodigoResultadoAVS>
+</ResultadoAPC>
