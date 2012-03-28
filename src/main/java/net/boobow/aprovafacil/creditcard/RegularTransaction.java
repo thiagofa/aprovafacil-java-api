@@ -7,10 +7,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.xml.bind.JAXBException;
+
 import org.apache.commons.lang3.StringUtils;
 
 import net.boobow.aprovafacil.service.AprovaFacilService;
-import net.boobow.aprovafacil.service.AuthorizationXmlParser;
+import net.boobow.aprovafacil.service.XmlParser;
 
 public class RegularTransaction {
 
@@ -28,21 +30,25 @@ public class RegularTransaction {
 	private Boolean utf8Output;
 	
 	private AprovaFacilService aprovaFacilService;
-	private AuthorizationXmlParser authorizationXmlParser;
+	private XmlParser xmlParser;
 
 	public RegularTransaction() {
-		this.authorizationXmlParser = new AuthorizationXmlParser();
+		this.xmlParser = new XmlParser();
 	}
 	
 	public void setAprovaFacilService(AprovaFacilService aprovaFacilService) {
 		this.aprovaFacilService = aprovaFacilService;
 	}
 	
-	public Authorization authorizeFunds() throws IOException {
+	public void setXmlParser(XmlParser xmlParser) {
+		this.xmlParser = xmlParser;
+	}
+	
+	public Authorization authorizeFunds() throws IOException, JAXBException {
 		this.addParametersToService();
 		String xml = this.aprovaFacilService.post();
 		
-		return this.authorizationXmlParser.parse(xml);
+		return this.xmlParser.parseAuthorization(xml);
 	}
 	
 	private void addParametersToService() throws UnsupportedEncodingException {

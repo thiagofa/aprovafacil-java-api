@@ -8,12 +8,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import net.boobow.aprovafacil.TestUtil;
+import javax.xml.bind.JAXBException;
+
 import net.boobow.aprovafacil.service.AprovaFacilService;
+import net.boobow.aprovafacil.service.XmlParser;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Spy;
 
 import static org.mockito.Mockito.*;
@@ -26,15 +28,17 @@ import static org.junit.Assert.*;
 
 public class RegularTransactionTest {
 
-	private static final String AUTHORIZATION_NUMBER = "008771";
 	private CreditCard creditCard;
 	private RegularTransaction transaction;
 	
 	@Spy
 	private AprovaFacilService aprovaFacilService;
 	
+	@Mock
+	private XmlParser xmlParser;
+	
 	@Before
-	public void setUp() throws ParseException, IOException {
+	public void setUp() throws ParseException, IOException, JAXBException {
 		aprovaFacilService = new AprovaFacilService("boobow", 
 				AprovaFacilService.Environment.TEST);
 		
@@ -44,6 +48,7 @@ public class RegularTransactionTest {
 		this.creditCard.setNumber("4551870000000183");
 		this.creditCard.setExpirationMonth(9);
 		this.creditCard.setExpirationYear(2014);
+		this.creditCard.setSecurityCode(123);
 		this.creditCard.setBrand(CreditCard.Brand.VISA);
 		
 		CreditCardHolder holder = new CreditCardHolder();
@@ -55,6 +60,8 @@ public class RegularTransactionTest {
 		
 		this.transaction = new RegularTransaction();
 		this.transaction.setAprovaFacilService(aprovaFacilService);
+		this.transaction.setXmlParser(this.xmlParser);
+		
 		this.transaction.setOrderNumber("123");
 		this.transaction.setTotalAmount(new BigDecimal(1.99));
 		this.transaction.setCurrency(Currency.BRL);
@@ -66,9 +73,13 @@ public class RegularTransactionTest {
 		this.transaction.setBuyerHost("127.0.0.1");
 		this.transaction.setUtf8Output(Boolean.TRUE);
 		
+		//this.authorization = new Authorization();
+		
+		//when(this.xmlParser.parseAuthorization(anyString())).thenReturn(authorization);
+		
 		doAnswer(new Answer<String>() {
 			public String answer(InvocationOnMock invocation) throws Throwable {
-				return TestUtil.loadAuthorizedXml();
+				return  "<samplexml/>";
 			}
 			
 		}).when(this.aprovaFacilService).post();
@@ -76,24 +87,20 @@ public class RegularTransactionTest {
 	}
 	
 	@Test
-	public void shouldAuthorizeTransactionWithSecurityCode123() throws IOException {
-		this.creditCard.setSecurityCode(123);
-		Authorization authorization = this.transaction.authorizeFunds();
+	public void shouldPostTransaction() throws IOException, JAXBException {
+		this.transaction.authorizeFunds();
 
-		assertTrue("Should authorize transaction.", authorization.isAuthorized());
+		verify(this.aprovaFacilService).post();
 	}
 	
-	@Test
-	public void shoudNotAuthorizeTransactionWithSecurityCode501() throws IOException {
-		this.creditCard.setSecurityCode(501);
-		Authorization authorization = transaction.authorizeFunds();
+	public void shouldParseXmlResult() throws IOException, JAXBException {
+		this.transaction.authorizeFunds();
 		
-		assertFalse("Should not authorize transaction.", authorization.isAuthorized());
+		verify(this.xmlParser).parseAuthorization("<samplexml/>");
 	}
 	
 	@Test
-	public void shouldAddParametersToService() throws IOException {
-		this.creditCard.setSecurityCode(123);
+	public void shouldAddParametersToService() throws IOException, JAXBException {
 		this.transaction.authorizeFunds();
 		
 		String[] tokens = new String[] {this.aprovaFacilService.getParameters(), 
@@ -112,16 +119,6 @@ public class RegularTransactionTest {
 			assertTrue(token + " does not exists in parameters", 
 					this.aprovaFacilService.getParameters().indexOf(token) > -1);
 		}
-	}
-	
-	@Test
-	@Ignore
-	public void shoudReturnAuthorizationNumber() throws IOException {
-		this.creditCard.setSecurityCode(123);
-		Authorization authorization = this.transaction.authorizeFunds();
-
-		assertEquals("Should return authorization number.", AUTHORIZATION_NUMBER, 
-				authorization.getNumber());
 	}
 	
 	private Date createDate(String dateAsString) throws ParseException {

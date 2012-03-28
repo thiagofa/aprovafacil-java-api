@@ -1,21 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <ResultadoAPC>
 <TransacaoAprovada>True</TransacaoAprovada>
-<ResultadoSolicitacaoAprovacao>Autorização - 008771</ResultadoSolicitacaoAprovacao>
+<ResultadoSolicitacaoAprovacao>Autorizacao - 008771</ResultadoSolicitacaoAprovacao>
 <CodigoAutorizacao>008771</CodigoAutorizacao>
 <Transacao>73458446250265</Transacao>
-<CartaoMascarado>Cartao Nao Informado</CartaoMascarado>
+<CartaoMascarado>**** **** **** 8076</CartaoMascarado>
 <NumeroDocumento>123</NumeroDocumento>
-<ComprovanteAdministradora></ComprovanteAdministradora>
-<NacionalidadeEmissor></NacionalidadeEmissor>
-<ResultadoAVS></ResultadoAVS>
+<ComprovanteAdministradora>Teste comprovante</ComprovanteAdministradora>
+<NacionalidadeEmissor>Brasileiro</NacionalidadeEmissor>
+<ResultadoAVS>X</ResultadoAVS>
 <EnderecoAVS>
-<Endereco></Endereco>
-<Numero></Numero>
-<Complemento></Complemento>
-<Cep></Cep>
+<Endereco>Rua das Cajamandas Azuis</Endereco>
+<Numero>987</Numero>
+<Complemento>AP 101</Complemento>
+<Cep>38400-123</Cep>
 </EnderecoAVS>
-<NumeroSequencialUnico></NumeroSequencialUnico>
-<NumeroControleRede></NumeroControleRede>
+<NumeroSequencialUnico>12345</NumeroSequencialUnico>
+<NumeroControleRede>876</NumeroControleRede>
 <CodigoResultadoAprovacao>00</CodigoResultadoAprovacao>
-<CodigoResultadoAVS></CodigoResultadoAVS>
+<CodigoResultadoAVS>11</CodigoResultadoAVS>
 </ResultadoAPC>
