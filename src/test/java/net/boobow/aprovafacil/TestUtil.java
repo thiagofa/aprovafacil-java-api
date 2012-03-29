@@ -8,7 +8,19 @@ import java.io.InputStreamReader;
 public class TestUtil {
 
 	public static String loadAuthorizedXml() throws IOException {
-		InputStream is = TestUtil.class.getClassLoader().getResourceAsStream("authorized.xml");
+		return loadXml("authorization.xml");
+	}
+	
+	public static String loadConfirmedSettlementResultXml() throws IOException {
+		return loadXml("settlement-result-confirmed.xml");
+	}
+	
+	public static String loadSettlementResultXmlWithError() throws IOException {
+		return loadXml("settlement-result-error.xml");
+	}
+	
+	private static String loadXml(String name) throws IOException {
+		InputStream is = TestUtil.class.getClassLoader().getResourceAsStream(name);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		
 		StringBuilder sb = new StringBuilder();

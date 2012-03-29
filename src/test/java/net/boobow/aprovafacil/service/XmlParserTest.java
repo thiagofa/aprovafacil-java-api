@@ -6,6 +6,7 @@ import javax.xml.bind.JAXBException;
 
 import net.boobow.aprovafacil.TestUtil;
 import net.boobow.aprovafacil.creditcard.Authorization;
+import net.boobow.aprovafacil.creditcard.SettlementResult;
 
 import static org.junit.Assert.*;
 
@@ -14,11 +15,9 @@ import org.junit.Test;
 public class XmlParserTest {
 
 	@Test
-	public void shouldParseExternalXmlCorrectly() throws JAXBException, IOException {
+	public void shouldParseAuthorizationXmlCorrectly() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
 		Authorization authorization = parser.parseAuthorization(TestUtil.loadAuthorizedXml());
-		
-		System.out.println(authorization.getMessage());
 		
 		assertTrue(authorization.isAuthorized());
 		assertEquals("Autorizacao - 008771", authorization.getMessage());
@@ -36,6 +35,31 @@ public class XmlParserTest {
 		assertEquals("12345", authorization.getUniqueSerialNumber());
 		assertEquals("00", authorization.getAuthorizationResultNumber());
 		assertEquals("11", authorization.getAvsResultNumber());
+	}
+	
+	@Test
+	public void shouldParseSettlementXmlCorrectly() throws JAXBException, IOException {
+		XmlParser parser = new XmlParser();
+		SettlementResult result = parser.parseSettlementResult(TestUtil.loadConfirmedSettlementResultXml());
+		
+		assertEquals("Confirmado%2073263500055432", result.getMessage().trim());
+		assertEquals("Comprovante captura", result.getReceiptAcquirer());
+	}
+	
+	@Test
+	public void shouldConfirmSuccessfulSettlement() throws JAXBException, IOException {
+		XmlParser parser = new XmlParser();
+		SettlementResult result = parser.parseSettlementResult(TestUtil.loadConfirmedSettlementResultXml());
+		
+		assertTrue(result.isConfirmed());
+	}
+	
+	@Test
+	public void shouldNotConfirmSettlementWithError() throws JAXBException, IOException {
+		XmlParser parser = new XmlParser();
+		SettlementResult result = parser.parseSettlementResult(TestUtil.loadSettlementResultXmlWithError());
+		
+		assertTrue(!result.isConfirmed());
 	}
 	
 }

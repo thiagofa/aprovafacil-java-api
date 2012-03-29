@@ -73,10 +73,6 @@ public class RegularTransactionTest {
 		this.transaction.setBuyerHost("127.0.0.1");
 		this.transaction.setUtf8Output(Boolean.TRUE);
 		
-		//this.authorization = new Authorization();
-		
-		//when(this.xmlParser.parseAuthorization(anyString())).thenReturn(authorization);
-		
 		doAnswer(new Answer<String>() {
 			public String answer(InvocationOnMock invocation) throws Throwable {
 				return  "<samplexml/>";

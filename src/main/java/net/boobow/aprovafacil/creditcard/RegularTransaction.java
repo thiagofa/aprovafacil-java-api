@@ -14,10 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import net.boobow.aprovafacil.service.AprovaFacilService;
 import net.boobow.aprovafacil.service.XmlParser;
 
-public class RegularTransaction {
+public class RegularTransaction extends BaseRequest {
 
-	private static DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-	
 	private String orderNumber;
 	private BigDecimal totalAmount;
 	private Currency currency;
@@ -28,21 +26,6 @@ public class RegularTransaction {
 	private Acquirer acquirer;
 	private String buyerHost;
 	private Boolean utf8Output;
-	
-	private AprovaFacilService aprovaFacilService;
-	private XmlParser xmlParser;
-
-	public RegularTransaction() {
-		this.xmlParser = new XmlParser();
-	}
-	
-	public void setAprovaFacilService(AprovaFacilService aprovaFacilService) {
-		this.aprovaFacilService = aprovaFacilService;
-	}
-	
-	public void setXmlParser(XmlParser xmlParser) {
-		this.xmlParser = xmlParser;
-	}
 	
 	public Authorization authorizeFunds() throws IOException, JAXBException {
 		this.addParametersToService();
@@ -79,55 +62,6 @@ public class RegularTransaction {
 		this.addParameterToService("ParcelamentoAdministradora", this.getInstallmentByAdmin(), 0, null);
 		this.addParameterToService("Moeda", this.getCurrency(), 0, null);
 		this.addParameterToService("ResponderEmUTF8", true, 0, null);
-	}
-	
-	private void addParameterToService(String name, Boolean value, int size, 
-			String fillWith) throws UnsupportedEncodingException {
-		if (value != null) {
-			this.addParameterToService(name, value.booleanValue() ? "S" : "N",
-					size, fillWith);
-		}
-	}
-	
-	private void addParameterToService(String name, BigDecimal value, int size, 
-			String fillWith) throws UnsupportedEncodingException {
-		if (value != null) {
-			this.addParameterToService(name, Double.toString(value.doubleValue()),
-					size, fillWith);
-		}
-	}
-	
-	private void addParameterToService(String name, Date value, int size, 
-			String fillWith) throws UnsupportedEncodingException {
-		if (value != null) {
-			this.addParameterToService(name, DATE_FORMAT.format(value),
-					size, fillWith);
-		}
-	}
-	
-	private void addParameterToService(String name, Integer value, int size, 
-			String fillWith) throws UnsupportedEncodingException {
-		if (value != null) {
-			this.addParameterToService(name, value.toString(), size, fillWith);
-		}
-	}
-	
-	@SuppressWarnings("rawtypes")
-	private void addParameterToService(String name, Enum value, int size, 
-			String fillWith) throws UnsupportedEncodingException {
-		if (value != null) {
-			this.addParameterToService(name, value.toString(), size, fillWith);
-		}
-	}
-	
-	private void addParameterToService(String name, String value, int size, 
-			String fillWith) throws UnsupportedEncodingException {
-		if (value != null) {
-			if (size > 0) {
-				value = StringUtils.leftPad(value, size, fillWith);
-			}
-			this.aprovaFacilService.addParameter(name, value);
-		}
 	}
 	
 	public String getOrderNumber() {
