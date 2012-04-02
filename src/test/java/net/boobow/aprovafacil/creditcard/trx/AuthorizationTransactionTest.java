@@ -17,6 +17,7 @@ import net.boobow.aprovafacil.creditcard.Currency;
 import net.boobow.aprovafacil.creditcard.trx.AuthorizationTransaction;
 import net.boobow.aprovafacil.service.AprovaFacilService;
 import net.boobow.aprovafacil.service.XmlParser;
+import net.boobow.aprovafacil.util.TestUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -59,7 +60,7 @@ public class AuthorizationTransactionTest {
 		CreditCardHolder holder = new CreditCardHolder();
 		holder.setName("Joaquim P Soares");
 		holder.setFederalTaxId("12312312300");
-		holder.setBirthDate(this.createDate("20/02/1990"));
+		holder.setBirthDate(TestUtil.createDate("20/02/1990"));
 		holder.setMotherName("Sebastiana das Couves");
 		this.creditCard.setHolder(holder);
 		
@@ -122,10 +123,5 @@ public class AuthorizationTransactionTest {
 		}
 	}
 	
-	private Date createDate(String dateAsString) throws ParseException {
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = df.parse(dateAsString);
-		return date;
-	}
 	
 }

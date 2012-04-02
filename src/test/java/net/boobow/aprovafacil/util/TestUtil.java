@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TestUtil {
 
@@ -31,6 +35,12 @@ public class TestUtil {
 		}
 		
 		return sb.toString();
+	}
+	
+	public static Date createDate(String dateAsString) throws ParseException {
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = df.parse(dateAsString);
+		return date;
 	}
 	
 }
