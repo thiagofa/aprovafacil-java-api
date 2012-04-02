@@ -12,11 +12,11 @@ public class TestUtil {
 	}
 	
 	public static String loadConfirmedSettlementResultXml() throws IOException {
-		return loadXml("settlement-result-confirmed.xml");
+		return loadXml("settlement-confirmed.xml");
 	}
 	
 	public static String loadSettlementResultXmlWithError() throws IOException {
-		return loadXml("settlement-result-error.xml");
+		return loadXml("settlement-error.xml");
 	}
 	
 	private static String loadXml(String name) throws IOException {
