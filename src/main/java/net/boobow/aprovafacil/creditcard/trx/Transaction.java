@@ -1,4 +1,4 @@
-package net.boobow.aprovafacil.creditcard;
+package net.boobow.aprovafacil.creditcard.trx;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -11,14 +11,14 @@ import net.boobow.aprovafacil.service.XmlParser;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class BaseRequest {
+public class Transaction {
 
 	protected static DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 	
 	protected AprovaFacilService aprovaFacilService;
 	protected XmlParser xmlParser;
 	
-	public BaseRequest() {
+	public Transaction() {
 		this.xmlParser = new XmlParser();
 	}
 	

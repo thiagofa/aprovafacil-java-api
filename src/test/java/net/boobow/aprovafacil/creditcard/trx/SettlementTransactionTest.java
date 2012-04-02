@@ -1,4 +1,4 @@
-package net.boobow.aprovafacil.creditcard;
+package net.boobow.aprovafacil.creditcard.trx;
 
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 import javax.xml.bind.JAXBException;
 
+import net.boobow.aprovafacil.creditcard.trx.SettlementTransaction;
 import net.boobow.aprovafacil.service.AprovaFacilService;
 import net.boobow.aprovafacil.service.XmlParser;
 
@@ -18,17 +19,13 @@ import org.mockito.Spy;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import static org.mockito.Mockito.*;
-
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.*;
 
-public class SettlementRequestTest {
+public class SettlementTransactionTest {
 
-	private SettlementRequest settlementRequest;
+	private SettlementTransaction transaction;
 	
 	@Mock
 	private XmlParser xmlParser;
@@ -43,14 +40,14 @@ public class SettlementRequestTest {
 		
 		MockitoAnnotations.initMocks(this);
 		
-		this.settlementRequest = new SettlementRequest();
-		this.settlementRequest.setAprovaFacilService(aprovaFacilService);
-		this.settlementRequest.setXmlParser(this.xmlParser);
+		this.transaction = new SettlementTransaction();
+		this.transaction.setAprovaFacilService(aprovaFacilService);
+		this.transaction.setXmlParser(this.xmlParser);
 		
-		this.settlementRequest.setDocumentNumber("123");
-		this.settlementRequest.setTransactionNumber("XYZ");
-		this.settlementRequest.setAmount(new BigDecimal(1.87));
-		this.settlementRequest.setUtf8Output(true);
+		this.transaction.setDocumentNumber("123");
+		this.transaction.setTransactionNumber("XYZ");
+		this.transaction.setAmount(new BigDecimal(1.87));
+		this.transaction.setUtf8Output(true);
 		
 		doAnswer(new Answer<String>() {
 			public String answer(InvocationOnMock invocation) throws Throwable {
@@ -62,21 +59,21 @@ public class SettlementRequestTest {
 	
 	@Test
 	public void shouldPostTransaction() throws IOException, JAXBException {
-		this.settlementRequest.settle();
+		this.transaction.settle();
 
 		verify(this.aprovaFacilService).post();
 	}
 	
 	@Test
 	public void shouldParseXmlResult() throws IOException, JAXBException {
-		this.settlementRequest.settle();
+		this.transaction.settle();
 		
 		verify(this.xmlParser).parseSettlementResult("<samplexml/>");
 	}
 	
 	@Test
 	public void shouldAddParametersToService() throws IOException, JAXBException {
-		this.settlementRequest.settle();
+		this.transaction.settle();
 		
 		String[] tokens = new String[] {this.aprovaFacilService.getParameters(), 
 				"NumeroDocumento=123", "Transacao=XYZ",

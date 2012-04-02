@@ -1,4 +1,4 @@
-package net.boobow.aprovafacil.creditcard;
+package net.boobow.aprovafacil.creditcard.trx;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -10,6 +10,11 @@ import java.util.Date;
 
 import javax.xml.bind.JAXBException;
 
+import net.boobow.aprovafacil.creditcard.Acquirer;
+import net.boobow.aprovafacil.creditcard.CreditCard;
+import net.boobow.aprovafacil.creditcard.CreditCardHolder;
+import net.boobow.aprovafacil.creditcard.Currency;
+import net.boobow.aprovafacil.creditcard.trx.AuthorizationTransaction;
 import net.boobow.aprovafacil.service.AprovaFacilService;
 import net.boobow.aprovafacil.service.XmlParser;
 
@@ -26,10 +31,10 @@ import org.mockito.stubbing.Answer;
 
 import static org.junit.Assert.*;
 
-public class RegularTransactionTest {
+public class AuthorizationTransactionTest {
 
 	private CreditCard creditCard;
-	private RegularTransaction transaction;
+	private AuthorizationTransaction transaction;
 	
 	@Spy
 	private AprovaFacilService aprovaFacilService;
@@ -58,7 +63,7 @@ public class RegularTransactionTest {
 		holder.setMotherName("Sebastiana das Couves");
 		this.creditCard.setHolder(holder);
 		
-		this.transaction = new RegularTransaction();
+		this.transaction = new AuthorizationTransaction();
 		this.transaction.setAprovaFacilService(aprovaFacilService);
 		this.transaction.setXmlParser(this.xmlParser);
 		

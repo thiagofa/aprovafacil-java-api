@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 
-import net.boobow.aprovafacil.TestUtil;
 import net.boobow.aprovafacil.creditcard.Authorization;
-import net.boobow.aprovafacil.creditcard.SettlementResult;
+import net.boobow.aprovafacil.creditcard.Settlement;
+import net.boobow.aprovafacil.util.TestUtil;
 
 import static org.junit.Assert.*;
 
@@ -28,7 +28,7 @@ public class XmlParserTest {
 		assertEquals("Teste comprovante", authorization.getReceiptAcquirer());
 		assertEquals("Brasileiro", authorization.getNationalityIssuer());
 		assertEquals("X", authorization.getAvsResult());
-		assertEquals("Rua das Cajamandas Azuis", authorization.getAddressVerification().getAddress());
+		assertEquals("Rua das Cajamangas Azuis", authorization.getAddressVerification().getAddress());
 		assertEquals("987", authorization.getAddressVerification().getNumber());
 		assertEquals("AP 101", authorization.getAddressVerification().getComplement());
 		assertEquals("38400-123", authorization.getAddressVerification().getZipCode());
@@ -40,7 +40,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldParseSettlementXmlCorrectly() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		SettlementResult result = parser.parseSettlementResult(TestUtil.loadConfirmedSettlementResultXml());
+		Settlement result = parser.parseSettlementResult(TestUtil.loadConfirmedSettlementResultXml());
 		
 		assertEquals("Confirmado%2073263500055432", result.getMessage().trim());
 		assertEquals("Comprovante captura", result.getReceiptAcquirer());
@@ -49,7 +49,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldConfirmSuccessfulSettlement() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		SettlementResult result = parser.parseSettlementResult(TestUtil.loadConfirmedSettlementResultXml());
+		Settlement result = parser.parseSettlementResult(TestUtil.loadConfirmedSettlementResultXml());
 		
 		assertTrue(result.isConfirmed());
 	}
@@ -57,7 +57,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldNotConfirmSettlementWithError() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		SettlementResult result = parser.parseSettlementResult(TestUtil.loadSettlementResultXmlWithError());
+		Settlement result = parser.parseSettlementResult(TestUtil.loadSettlementResultXmlWithError());
 		
 		assertTrue(!result.isConfirmed());
 	}

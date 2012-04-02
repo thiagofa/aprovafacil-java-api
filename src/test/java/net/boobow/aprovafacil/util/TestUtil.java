@@ -1,4 +1,4 @@
-package net.boobow.aprovafacil;
+package net.boobow.aprovafacil.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

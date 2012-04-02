@@ -1,20 +1,19 @@
-package net.boobow.aprovafacil.creditcard;
+package net.boobow.aprovafacil.creditcard.trx;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.xml.bind.JAXBException;
 
+import net.boobow.aprovafacil.creditcard.Acquirer;
+import net.boobow.aprovafacil.creditcard.Authorization;
+import net.boobow.aprovafacil.creditcard.CreditCard;
+import net.boobow.aprovafacil.creditcard.Currency;
+
 import org.apache.commons.lang3.StringUtils;
 
-import net.boobow.aprovafacil.service.AprovaFacilService;
-import net.boobow.aprovafacil.service.XmlParser;
-
-public class RegularTransaction extends BaseRequest {
+public class AuthorizationTransaction extends Transaction {
 
 	private String orderNumber;
 	private BigDecimal totalAmount;

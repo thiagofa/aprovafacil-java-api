@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import net.boobow.aprovafacil.TestUtil;
+import net.boobow.aprovafacil.util.TestUtil;
 
 import org.junit.Before;
 import org.junit.Test;

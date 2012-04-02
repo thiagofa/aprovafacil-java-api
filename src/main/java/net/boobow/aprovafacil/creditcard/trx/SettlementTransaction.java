@@ -1,4 +1,4 @@
-package net.boobow.aprovafacil.creditcard;
+package net.boobow.aprovafacil.creditcard.trx;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -6,16 +6,16 @@ import java.math.BigDecimal;
 
 import javax.xml.bind.JAXBException;
 
-import org.apache.commons.lang3.StringUtils;
+import net.boobow.aprovafacil.creditcard.Settlement;
 
-public class SettlementRequest extends BaseRequest {
+public class SettlementTransaction extends Transaction {
 
 	private String documentNumber;
 	private String transactionNumber;
 	private BigDecimal amount;
 	private Boolean utf8Output;
 	
-	public SettlementResult settle() throws IOException, JAXBException {
+	public Settlement settle() throws IOException, JAXBException {
 		this.addParametersToService();
 		
 		String xml = this.aprovaFacilService.post();
