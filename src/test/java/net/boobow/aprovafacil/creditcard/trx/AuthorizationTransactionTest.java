@@ -68,7 +68,7 @@ public class AuthorizationTransactionTest {
 		this.transaction.setXmlParser(this.xmlParser);
 		
 		this.transaction.setDocumentNumber("123");
-		this.transaction.setTotalAmount(new BigDecimal(1.99));
+		this.transaction.setAmount(new BigDecimal(1.99));
 		this.transaction.setCurrency(Currency.BRL);
 		this.transaction.setInstallments(1);
 		this.transaction.setInstallmentByAdmin(Boolean.FALSE);

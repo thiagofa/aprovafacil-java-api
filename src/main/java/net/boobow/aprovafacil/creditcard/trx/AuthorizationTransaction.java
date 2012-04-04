@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 public class AuthorizationTransaction extends Transaction {
 
 	private String documentNumber;
-	private BigDecimal totalAmount;
+	private BigDecimal amount;
 	private Currency currency;
 	private Integer installments;
 	private Boolean preAuthorization;
@@ -35,7 +35,7 @@ public class AuthorizationTransaction extends Transaction {
 	
 	private void addParametersToService() throws UnsupportedEncodingException {
 		this.addParameterToService("NumeroDocumento", this.documentNumber, 0, null);
-		this.addParameterToService("ValorDocumento", this.totalAmount, 0, null);
+		this.addParameterToService("ValorDocumento", this.amount, 0, null);
 		this.addParameterToService("QuantidadeParcelas", this.installments, 0, null);
 		this.addParameterToService("NumeroCartao", this.creditCard.getNumber(), 0, null);
 		this.addParameterToService("MesValidade", this.creditCard.getExpirationMonth(), 2, "0");
@@ -71,12 +71,12 @@ public class AuthorizationTransaction extends Transaction {
 		this.documentNumber = documentNumber;
 	}
 
-	public BigDecimal getTotalAmount() {
-		return totalAmount;
+	public BigDecimal getAmount() {
+		return amount;
 	}
 
-	public void setTotalAmount(BigDecimal totalAmount) {
-		this.totalAmount = totalAmount;
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 
 	public Currency getCurrency() {
