@@ -13,21 +13,46 @@ import net.boobow.aprovafacil.creditcard.Authorization;
 import net.boobow.aprovafacil.creditcard.CreditCard;
 import net.boobow.aprovafacil.creditcard.CreditCardHolder;
 import net.boobow.aprovafacil.creditcard.Currency;
+import net.boobow.aprovafacil.creditcard.Settlement;
 import net.boobow.aprovafacil.creditcard.trx.AuthorizationTransaction;
+import net.boobow.aprovafacil.creditcard.trx.SettlementTransaction;
 import net.boobow.aprovafacil.service.AprovaFacilService;
 import net.boobow.aprovafacil.util.TestUtil;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class ITAuthorizationTransactionTest {
+public class ITTransactionTest {
+
+	private static final String ORDER_NUMBER = "123";
+	private static final BigDecimal AMOUNT = new BigDecimal(1.99);
 
 	@Test
-	@Ignore
-	public void testAuthorizeTransaction() throws ParseException, IOException, JAXBException {
+	public void shouldAuthorizeAndSettle() throws ParseException, IOException, JAXBException {
 		AprovaFacilService aprovaFacilService = new AprovaFacilService("boobow", 
 				AprovaFacilService.Environment.TEST);
 		
+		Authorization authorization = authorize(aprovaFacilService);
+		assertTrue(authorization.isAuthorized());
+		
+		Settlement settlement = this.settle(aprovaFacilService, authorization);
+		assertTrue(settlement.isConfirmed());
+	}
+
+	private Settlement settle(AprovaFacilService aprovaFacilService, Authorization authorization) 
+			throws IOException, JAXBException {
+		SettlementTransaction transaction = new SettlementTransaction();
+		transaction.setAprovaFacilService(aprovaFacilService);
+		
+		transaction.setAmount(AMOUNT);
+		transaction.setDocumentNumber(ORDER_NUMBER);
+		transaction.setTransactionNumber(authorization.getTransactionNumber());
+		transaction.setUtf8Output(true);
+		return transaction.settle();
+	}
+
+	private Authorization authorize(AprovaFacilService aprovaFacilService)
+			throws ParseException, IOException, JAXBException {
 		CreditCard creditCard = new CreditCard();
 		creditCard.setNumber("4551870000000183");
 		creditCard.setExpirationMonth(9);
@@ -45,8 +70,8 @@ public class ITAuthorizationTransactionTest {
 		AuthorizationTransaction transaction = new AuthorizationTransaction();
 		transaction.setAprovaFacilService(aprovaFacilService);
 		
-		transaction.setDocumentNumber("123");
-		transaction.setTotalAmount(new BigDecimal(1.99));
+		transaction.setDocumentNumber(ORDER_NUMBER);
+		transaction.setTotalAmount(AMOUNT);
 		transaction.setCurrency(Currency.BRL);
 		transaction.setInstallments(1);
 		transaction.setInstallmentByAdmin(Boolean.FALSE);
@@ -56,9 +81,7 @@ public class ITAuthorizationTransactionTest {
 		transaction.setBuyerHost("127.0.0.1");
 		transaction.setUtf8Output(Boolean.TRUE);
 		
-		Authorization authorization = transaction.authorizeFunds();
-		
-		assertTrue(authorization.isAuthorized());
+		return transaction.authorizeFunds();
 	}
 	
 }

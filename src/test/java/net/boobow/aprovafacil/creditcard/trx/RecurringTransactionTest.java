@@ -20,6 +20,8 @@ import org.mockito.Spy;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import static org.mockito.Mockito.*;
+
 public class RecurringTransactionTest {
 
 	private RecurringTransaction transaction;
@@ -52,14 +54,14 @@ public class RecurringTransactionTest {
 				return  "<samplexml/>";
 			}
 			
-		}).when(this.aprovaFacilService).post();
+		}).when(this.aprovaFacilService).post(anyString());
 	}
 	
 	@Test
-	public void shouldPostTransaction() throws IOException, JAXBException {
+	public void shouldPostTransactionWithAPCService() throws IOException, JAXBException {
 		this.transaction.authorizeFunds();
 
-		verify(this.aprovaFacilService).post();
+		verify(this.aprovaFacilService).post("APC");
 	}
 	
 	public void shouldParseXmlResult() throws IOException, JAXBException {

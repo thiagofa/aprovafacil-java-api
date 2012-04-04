@@ -18,7 +18,7 @@ public class SettlementTransaction extends Transaction {
 	public Settlement settle() throws IOException, JAXBException {
 		this.addParametersToService();
 		
-		String xml = this.aprovaFacilService.post();
+		String xml = this.aprovaFacilService.post("CAP");
 		
 		return this.xmlParser.parseSettlementResult(xml);
 	}

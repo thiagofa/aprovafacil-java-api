@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import net.boobow.aprovafacil.service.AprovaFacilService;
+
 public class TestUtil {
 
 	public static String loadAuthorizedXml() throws IOException {
@@ -41,6 +43,16 @@ public class TestUtil {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = df.parse(dateAsString);
 		return date;
+	}
+	
+	public static AprovaFacilService createTestService() {
+		return new AprovaFacilService("boobow", 
+				AprovaFacilService.Environment.TEST);
+	}
+	
+	public static AprovaFacilService createProductionService() {
+		return new AprovaFacilService("boobow", 
+				AprovaFacilService.Environment.PRODUCTION);
 	}
 	
 }

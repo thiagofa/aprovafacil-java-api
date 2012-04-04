@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class AuthorizationTransaction extends Transaction {
 
-	private String orderNumber;
+	private String documentNumber;
 	private BigDecimal totalAmount;
 	private Currency currency;
 	private Integer installments;
@@ -28,13 +28,13 @@ public class AuthorizationTransaction extends Transaction {
 	
 	public Authorization authorizeFunds() throws IOException, JAXBException {
 		this.addParametersToService();
-		String xml = this.aprovaFacilService.post();
+		String xml = this.aprovaFacilService.post("APC");
 		
 		return this.xmlParser.parseAuthorization(xml);
 	}
 	
 	private void addParametersToService() throws UnsupportedEncodingException {
-		this.addParameterToService("NumeroDocumento", this.orderNumber, 0, null);
+		this.addParameterToService("NumeroDocumento", this.documentNumber, 0, null);
 		this.addParameterToService("ValorDocumento", this.totalAmount, 0, null);
 		this.addParameterToService("QuantidadeParcelas", this.installments, 0, null);
 		this.addParameterToService("NumeroCartao", this.creditCard.getNumber(), 0, null);
@@ -63,12 +63,12 @@ public class AuthorizationTransaction extends Transaction {
 		this.addParameterToService("ResponderEmUTF8", true, 0, null);
 	}
 	
-	public String getOrderNumber() {
-		return orderNumber;
+	public String getDocumentNumber() {
+		return documentNumber;
 	}
 
-	public void setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
+	public void setDocumentNumber(String documentNumber) {
+		this.documentNumber = documentNumber;
 	}
 
 	public BigDecimal getTotalAmount() {

@@ -21,6 +21,8 @@ import org.mockito.stubbing.Answer;
 
 import org.mockito.MockitoAnnotations;
 
+import static org.mockito.Mockito.*;
+
 import static org.junit.Assert.*;
 
 public class SettlementTransactionTest {
@@ -54,14 +56,14 @@ public class SettlementTransactionTest {
 				return  "<samplexml/>";
 			}
 			
-		}).when(this.aprovaFacilService).post();
+		}).when(this.aprovaFacilService).post(anyString());
 	}
 	
 	@Test
-	public void shouldPostTransaction() throws IOException, JAXBException {
+	public void shouldPostTransactionWithCAPService() throws IOException, JAXBException {
 		this.transaction.settle();
 
-		verify(this.aprovaFacilService).post();
+		verify(this.aprovaFacilService).post("CAP");
 	}
 	
 	@Test

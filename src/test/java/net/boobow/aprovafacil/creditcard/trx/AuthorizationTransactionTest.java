@@ -45,8 +45,7 @@ public class AuthorizationTransactionTest {
 	
 	@Before
 	public void setUp() throws ParseException, IOException, JAXBException {
-		aprovaFacilService = new AprovaFacilService("boobow", 
-				AprovaFacilService.Environment.TEST);
+		aprovaFacilService = TestUtil.createTestService();
 		
 		MockitoAnnotations.initMocks(this);
 		
@@ -68,7 +67,7 @@ public class AuthorizationTransactionTest {
 		this.transaction.setAprovaFacilService(aprovaFacilService);
 		this.transaction.setXmlParser(this.xmlParser);
 		
-		this.transaction.setOrderNumber("123");
+		this.transaction.setDocumentNumber("123");
 		this.transaction.setTotalAmount(new BigDecimal(1.99));
 		this.transaction.setCurrency(Currency.BRL);
 		this.transaction.setInstallments(1);
@@ -84,15 +83,15 @@ public class AuthorizationTransactionTest {
 				return  "<samplexml/>";
 			}
 			
-		}).when(this.aprovaFacilService).post();
+		}).when(this.aprovaFacilService).post(anyString());
 		
 	}
 	
 	@Test
-	public void shouldPostTransaction() throws IOException, JAXBException {
+	public void shouldPostTransactionForAPCService() throws IOException, JAXBException {
 		this.transaction.authorizeFunds();
 
-		verify(this.aprovaFacilService).post();
+		verify(this.aprovaFacilService).post("APC");
 	}
 	
 	public void shouldParseXmlResult() throws IOException, JAXBException {
@@ -122,6 +121,5 @@ public class AuthorizationTransactionTest {
 					this.aprovaFacilService.getParameters().indexOf(token) > -1);
 		}
 	}
-	
 	
 }

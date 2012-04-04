@@ -11,14 +11,14 @@ public class AprovaFacilService {
 			@Override
 			String getUrl(String username) {
 				return "https://teste.aprovafacil.com/cgi-bin/APFW/" 
-						+ username + "/APC";
+						+ username + "/";
 			}
 		},
 		PRODUCTION {
 			@Override
 			String getUrl(String username) {
 				return "https://www.aprovafacil.com/cgi-bin/APFW/" 
-						+ username + "/APC";
+						+ username + "/";
 			}
 		};
 		
@@ -53,8 +53,8 @@ public class AprovaFacilService {
 		return this.environment.getUrl(this.username);
 	}
 
-	public String post() throws IOException {
-		return this.httpPost.post(this.getUrl(), this.getParameters());
+	public String post(String service) throws IOException {
+		return this.httpPost.post(this.getUrl() + service, this.getParameters());
 	}
 
 }

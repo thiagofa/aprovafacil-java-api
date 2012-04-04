@@ -19,7 +19,7 @@ public class RecurringTransaction extends Transaction {
 	public Authorization authorizeFunds() throws IOException, JAXBException {
 		this.addParametersToService();
 		
-		String xml = this.aprovaFacilService.post();
+		String xml = this.aprovaFacilService.post("APC");
 		
 		return this.xmlParser.parseAuthorization(xml);
 	}
