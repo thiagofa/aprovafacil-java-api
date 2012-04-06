@@ -62,4 +62,31 @@ public class XmlParserTest {
 		assertTrue(!result.isConfirmed());
 	}
 	
+	@Test
+	public void shouldSetAuthorizationXml() throws JAXBException, IOException {
+		XmlParser parser = new XmlParser();
+		String xml = TestUtil.loadAuthorizedXml();
+		Authorization result = parser.parseAuthorization(xml);
+		
+		assertEquals(result.getXml(), xml);
+	}
+	
+	@Test
+	public void shouldSetConfirmedSettlementXml() throws JAXBException, IOException {
+		XmlParser parser = new XmlParser();
+		String xml = TestUtil.loadConfirmedSettlementResultXml();
+		Settlement result = parser.parseSettlementResult(xml);
+		
+		assertEquals(result.getXml(), xml);
+	}
+	
+	@Test
+	public void shouldSetSettlementXmlWithError() throws JAXBException, IOException {
+		XmlParser parser = new XmlParser();
+		String xml = TestUtil.loadSettlementResultXmlWithError();
+		Settlement result = parser.parseSettlementResult(xml);
+		
+		assertEquals(result.getXml(), xml);
+	}
+	
 }
