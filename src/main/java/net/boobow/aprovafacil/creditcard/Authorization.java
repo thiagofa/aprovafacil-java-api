@@ -25,6 +25,7 @@ public class Authorization implements Serializable {
 	private String uniqueSerialNumber;
 	private String authorizationResultNumber;
 	private String avsResultNumber;
+	private String xml;
 	
 	public void setAuthorized(String authorized) {
 		this.authorized = authorized;
@@ -149,4 +150,12 @@ public class Authorization implements Serializable {
 		this.avsResultNumber = avsResultNumber;
 	}
 
+	@XmlTransient
+	public String getXml() {
+		return this.xml;
+	}
+	
+	public void setXml(String xml) {
+		this.xml = xml;
+	}
 }

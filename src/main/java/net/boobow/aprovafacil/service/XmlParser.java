@@ -15,6 +15,7 @@ public class XmlParser {
 		JAXBContext jc = JAXBContext.newInstance(Authorization.class);
 		Unmarshaller unmarshaller = jc.createUnmarshaller();
 		Authorization result = (Authorization) unmarshaller.unmarshal(new StringReader(xml));
+		result.setXml(xml);
 		
 		return result;
 	}
@@ -23,6 +24,7 @@ public class XmlParser {
 		JAXBContext jc = JAXBContext.newInstance(Settlement.class);
 		Unmarshaller unmarshaller = jc.createUnmarshaller();
 		Settlement result = (Settlement) unmarshaller.unmarshal(new StringReader(xml));
+		result.setXml(xml);
 		
 		return result;
 	}

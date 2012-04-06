@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name="ResultadoCAP")
 public class Settlement implements Serializable {
@@ -12,6 +13,7 @@ public class Settlement implements Serializable {
 	
 	private String message;
 	private String receiptAcquirer;
+	private String xml;
 	
 	@XmlElement(name="ResultadoSolicitacaoConfirmacao")
 	public String getMessage() {
@@ -31,6 +33,15 @@ public class Settlement implements Serializable {
 	public boolean isConfirmed() {
 		return this.getMessage() != null 
 				&& this.getMessage().trim().toLowerCase().startsWith("confirmado");
+	}
+	
+	@XmlTransient
+	public String getXml() {
+		return this.xml;
+	}
+	
+	public void setXml(String xml) {
+		this.xml = xml;
 	}
 	
 }
