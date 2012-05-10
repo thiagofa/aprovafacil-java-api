@@ -18,7 +18,7 @@ import net.boobow.aprovafacil.creditcard.trx.AuthorizationTransaction;
 import net.boobow.aprovafacil.creditcard.trx.RecurringTransaction;
 import net.boobow.aprovafacil.creditcard.trx.SettlementTransaction;
 import net.boobow.aprovafacil.service.AprovaFacilService;
-import net.boobow.aprovafacil.util.TestUtil;
+import net.boobow.aprovafacil.util.Util;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -95,7 +95,7 @@ public class ITTransactionTest {
 		CreditCardHolder holder = new CreditCardHolder();
 		holder.setName("Joaquim P Soares");
 		holder.setFederalTaxId("12312312300");
-		holder.setBirthDate(TestUtil.createDate("20/02/1990"));
+		holder.setBirthDate(Util.createDate("20/02/1990"));
 		holder.setMotherName("Sebastiana das Couves");
 		creditCard.setHolder(holder);
 		

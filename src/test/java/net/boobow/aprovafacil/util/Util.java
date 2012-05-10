@@ -9,12 +9,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.Ignore;
-
 import net.boobow.aprovafacil.service.AprovaFacilService;
 
-@Ignore
-public class TestUtil {
+public class Util {
 
 	public static String loadAuthorizedXml() throws IOException {
 		return loadXml("authorization.xml");
@@ -29,7 +26,7 @@ public class TestUtil {
 	}
 	
 	private static String loadXml(String name) throws IOException {
-		InputStream is = TestUtil.class.getClassLoader().getResourceAsStream(name);
+		InputStream is = Util.class.getClassLoader().getResourceAsStream(name);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		
 		StringBuilder sb = new StringBuilder();

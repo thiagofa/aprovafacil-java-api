@@ -6,7 +6,7 @@ import javax.xml.bind.JAXBException;
 
 import net.boobow.aprovafacil.creditcard.Authorization;
 import net.boobow.aprovafacil.creditcard.Settlement;
-import net.boobow.aprovafacil.util.TestUtil;
+import net.boobow.aprovafacil.util.Util;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +17,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldParseAuthorizationXmlCorrectly() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		Authorization authorization = parser.parseAuthorization(TestUtil.loadAuthorizedXml());
+		Authorization authorization = parser.parseAuthorization(Util.loadAuthorizedXml());
 		
 		assertTrue(authorization.isAuthorized());
 		assertEquals("Autorizacao - 008771", authorization.getMessage());
@@ -40,7 +40,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldParseSettlementXmlCorrectly() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		Settlement result = parser.parseSettlementResult(TestUtil.loadConfirmedSettlementResultXml());
+		Settlement result = parser.parseSettlementResult(Util.loadConfirmedSettlementResultXml());
 		
 		assertEquals("Confirmado%2073263500055432", result.getMessage().trim());
 		assertEquals("Comprovante captura", result.getReceiptAcquirer());
@@ -49,7 +49,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldConfirmSuccessfulSettlement() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		Settlement result = parser.parseSettlementResult(TestUtil.loadConfirmedSettlementResultXml());
+		Settlement result = parser.parseSettlementResult(Util.loadConfirmedSettlementResultXml());
 		
 		assertTrue(result.isConfirmed());
 	}
@@ -57,7 +57,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldNotConfirmSettlementWithError() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		Settlement result = parser.parseSettlementResult(TestUtil.loadSettlementResultXmlWithError());
+		Settlement result = parser.parseSettlementResult(Util.loadSettlementResultXmlWithError());
 		
 		assertTrue(!result.isConfirmed());
 	}
@@ -65,7 +65,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldSetAuthorizationXml() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		String xml = TestUtil.loadAuthorizedXml();
+		String xml = Util.loadAuthorizedXml();
 		Authorization result = parser.parseAuthorization(xml);
 		
 		assertEquals(result.getXml(), xml);
@@ -74,7 +74,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldSetConfirmedSettlementXml() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		String xml = TestUtil.loadConfirmedSettlementResultXml();
+		String xml = Util.loadConfirmedSettlementResultXml();
 		Settlement result = parser.parseSettlementResult(xml);
 		
 		assertEquals(result.getXml(), xml);
@@ -83,7 +83,7 @@ public class XmlParserTest {
 	@Test
 	public void shouldSetSettlementXmlWithError() throws JAXBException, IOException {
 		XmlParser parser = new XmlParser();
-		String xml = TestUtil.loadSettlementResultXmlWithError();
+		String xml = Util.loadSettlementResultXmlWithError();
 		Settlement result = parser.parseSettlementResult(xml);
 		
 		assertEquals(result.getXml(), xml);
