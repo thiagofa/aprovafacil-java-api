@@ -9,8 +9,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.junit.Ignore;
+
 import net.boobow.aprovafacil.service.AprovaFacilService;
 
+@Ignore
 public class TestUtil {
 
 	public static String loadAuthorizedXml() throws IOException {
